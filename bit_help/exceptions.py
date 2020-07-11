@@ -1,0 +1,2 @@
+class InvalidCurrency(Exception):
+	pass
