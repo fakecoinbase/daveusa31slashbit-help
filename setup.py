@@ -1,8 +1,5 @@
 import setuptools
 
-import package_name as lib
-
-
 
 with open("requirements.txt", "r", encoding="utf-8") as r:
     requires = [i.strip() for i in r]
@@ -23,7 +20,7 @@ setuptools.setup(
     author="daveusa31",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    python_requires=">=3.4",
+    python_requires=">=3.5",
     install_requires=requires,
     zip_safe=False,
     classifiers=[
@@ -31,7 +28,6 @@ setuptools.setup(
         "Intended Audience :: Developers",
         "Natural Language :: Russian",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
