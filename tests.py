@@ -1,10 +1,12 @@
 import bit_help
+from bit_help import markets
+
+coinbase = markets.Coinbase("oM7Lz4b7Q7MnJ8tY", "CTc1OKw4bq9r75eH4PsnBbEtSkDr5woP")
 
 
-coindesk = bit_help.markets.Coindesk()
+address_id = "6fc34503-9aa3-542e-882a-bf70a621faa9"
 
-print(coindesk.price(currency="RUB"))
 
-# # print(helper.Coindesk().historical_data())
-print(coindesk.supported_currencies())
+balance = coinbase.address_balance(address_id)
+print(bit_help.format_sum(balance))
 
