@@ -16,3 +16,9 @@ pip3 install bit-help
 ```python
 import bit_help
 ```
+
+
+
+
+# TO DO
+- [ ] Добавить в utilits валидатор биткоин адресов формата P2WPKH 
