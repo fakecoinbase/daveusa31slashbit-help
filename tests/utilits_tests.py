@@ -54,6 +54,15 @@ class UtilitsTest(unittest.TestCase):
         self.assertEqual(sum_in_satoshis, random_number)
 
 
+    def test_address_validate(self):
+        address = "3Cwgr2g7vsi1bXDUkpEnVoRLA9w4FZfC69"
+        validate = bit_help.utilits.address_validate(address)
+        print("Проверка валидатора адресов")
+        print("Адрес {} валидный, ответ {}".format(address, validate))
+
+        self.assertTrue(validate)
+
+
 
 if __name__ == "__main__":
     unittest.main()

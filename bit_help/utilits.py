@@ -1,6 +1,3 @@
-import bitcoinaddress
-
-
 from . import helper
 
 
@@ -50,9 +47,11 @@ def convert_bitcoins_to_satoshis(sum_in_bitcoins: float):
 
 def address_validate(address: str):
     try:
-        response = bitcoinaddress.validate(address)
+        response = helper.validate(address)
     except:
         response = False
+
+    return response
 
 
 
