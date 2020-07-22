@@ -16,7 +16,6 @@ class Coinbase(Client):
     Доступные методы:
         price
         address_balance
-        convert
     """
 
 
@@ -35,12 +34,12 @@ class Coinbase(Client):
 
 
 
-    
 
     def price(self, currency="USD"):
         currency_pair = "BTC-{}".format(currency.upper()) 
         price = self.client.get_buy_price(currency_pair=currency_pair)
         return float(price["amount"])
+
 
     def address_balance(self, address_id, confirmations=1):
         balance = 0
@@ -51,21 +50,51 @@ class Coinbase(Client):
 
         if 0 < len(transactions):
             for transaction in transactions:
-                hash = transaction["network"]["hash"]
-                transaction_sum = float(transaction["amount"]["amount"])
+                hash = transaction["network"]["hash"] # Txid
+                transaction_sum = float(transaction["amount"]["amount"]) # Сумма транзакции в виде 0.001 btc
+
 
                 if 3 <= confirmations:
-                    if "confirmed" == transaction["network"]["status"]:
+                    """
+                    Если нужно 3 или больше подтверждений сети,
+                    то проверяется транзакция на coinbase
+                    """
+                    if self.__check_confirmation_from_coinbase(transaction):
                         balance += transaction_sum
+                    
 
-                elif 0 < confirmations and 3 > confirmations:
+                elif confirmations in [1, 2]:
+                    """
+                    Если нужно 2 или 3 конфирма
+                    """
                     transaction_info = blockcypher.get_transaction_details(hash)
-                    transaction_confirmations = transaction_info["confirmations"]
+
+                    if "confirmations" in transaction_info:
+                        transaction_confirmations = transaction_info["confirmations"]
+
+                    elif self.__check_confirmation_from_coinbase(transaction):
+                        transaction_confirmations = 3
+
+                    else:
+                        transaction_confirmations = 0
+
 
                     if confirmations <= transaction_confirmations:
                         balance += transaction_sum
 
+
                 elif 0 == confirmations:
                     balance += transaction_sum
 
+
+
         return balance
+
+
+    def __check_confirmation_from_coinbase(self, transaction, balance):
+        if "confirmed" == transaction["network"]["status"]:
+            response = True
+        else:
+            response = False
+
+        return response
