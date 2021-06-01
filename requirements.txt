@@ -1,4 +1,4 @@
 coinbase==2.1.0
 requests==2.24.0
 random-data==0.1.5
-blockcypher==1.0.89
+blockcypher==1.0.92
